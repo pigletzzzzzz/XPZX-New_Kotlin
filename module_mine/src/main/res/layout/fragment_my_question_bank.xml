@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    binding:ignore="ResourceName">
+
+    <data>
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.czl.module_mine.viewmodel.MyQuestionBankViewModel" />
+
+        <variable
+            name="data"
+            type="com.czl.lib_base.data.bean.UserQuestionInfoBean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@mipmap/icon_lxt_bg"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_back"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:onClick="@{()->viewModel.finish()}"
+                android:padding="@dimen/dp_12"
+                app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="我的题库"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginEnd="48dp"
+                android:textColor="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <LinearLayout
+            android:id="@+id/ll_gz_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginLeft="@dimen/dp15"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/ll_toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            binding:onClickCommand="@{viewModel.onGoAllKnowledgeCommand}">
+
+            <TextView
+                android:id="@+id/tv_gz_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请选择知识点"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_wdtk_xetk_r"/>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_info"
+            android:layout_width="match_parent"
+            android:layout_height="107dp"
+            android:layout_marginTop="@dimen/dp20"
+            android:background="@drawable/shape_lxt_info_bg"
+            android:layout_below="@+id/ll_gz_type"
+            android:layout_marginHorizontal="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/ll_gz_type">
+
+            <LinearLayout
+                android:id="@+id/ll_dtl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp18"
+                android:layout_marginLeft="37dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_dt_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    android:textColor="#995808"/>
+
+                <TextView
+                    android:id="@+id/tv_dt_num_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/0"
+                    android:textSize="10sp"
+                    android:textColor="#995808"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="答题量"
+                android:textSize="11sp"
+                android:textColor="#995808"
+                android:layout_marginTop="2dp"
+                app:layout_constraintLeft_toLeftOf="@+id/ll_dtl"
+                app:layout_constraintRight_toRightOf="@+id/ll_dtl"
+                app:layout_constraintTop_toBottomOf="@+id/ll_dtl"/>
+
+            <LinearLayout
+                android:id="@+id/ll_zql"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp18"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_zql_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    android:textColor="#995808"/>
+
+                <TextView
+                    android:id="@+id/tv_zql_fh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"
+                    android:textSize="10sp"
+                    android:textColor="#995808"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正确率"
+                android:textSize="11sp"
+                android:textColor="#995808"
+                android:layout_marginTop="2dp"
+                app:layout_constraintLeft_toLeftOf="@+id/ll_zql"
+                app:layout_constraintRight_toRightOf="@+id/ll_zql"
+                app:layout_constraintTop_toBottomOf="@+id/ll_zql"/>
+
+            <LinearLayout
+                android:id="@+id/ll_zwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp18"
+                android:layout_marginRight="37dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_zwd_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    android:textColor="#995808"/>
+
+                <TextView
+                    android:id="@+id/tv_zwd_fh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"
+                    android:textSize="10sp"
+                    android:textColor="#995808"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="掌握度"
+                android:textSize="11sp"
+                android:textColor="#995808"
+                android:layout_marginTop="2dp"
+                app:layout_constraintLeft_toLeftOf="@+id/ll_zwd"
+                app:layout_constraintRight_toRightOf="@+id/ll_zwd"
+                app:layout_constraintTop_toBottomOf="@+id/ll_zwd"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/img_wdnlfx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_wdtk_ckfx"
+            android:layout_marginTop="@dimen/dp70"
+            app:layout_constraintTop_toTopOf="@+id/cl_info"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            binding:onClickCommand="@{viewModel.onMyAbilityAnalysisCommand}"/>
+
+        <ImageView
+            android:id="@+id/img_mryl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_wdtk_mryl"
+            android:layout_marginTop="@dimen/dp_12"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/img_btms"
+            app:layout_constraintTop_toBottomOf="@+id/img_wdnlfx"
+            binding:onClickCommand="@{viewModel.onDailyPracticeCommand}"/>
+
+        <ImageView
+            android:id="@+id/img_btms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_wdtk_btms"
+            android:layout_marginTop="@dimen/dp_12"
+            app:layout_constraintRight_toLeftOf="@+id/img_wlxt"
+            app:layout_constraintLeft_toRightOf="@+id/img_mryl"
+            app:layout_constraintTop_toBottomOf="@+id/img_wdnlfx"
+            binding:onClickCommand="@{viewModel.onBackTopicCommand}"/>
+
+        <ImageView
+            android:id="@+id/img_wlxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_wdtk_wlxt"
+            android:layout_marginTop="@dimen/dp_12"
+            app:layout_constraintRight_toLeftOf="@+id/img_zxlx"
+            app:layout_constraintLeft_toRightOf="@+id/img_btms"
+            app:layout_constraintTop_toBottomOf="@+id/img_wdnlfx"
+            binding:onClickCommand="@{viewModel.onUnpracticedQuestionsCommand}"/>
+
+        <ImageView
+            android:id="@+id/img_zxlx"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_wdtk_zxlx"
+            android:layout_marginTop="@dimen/dp_12"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/img_wlxt"
+            app:layout_constraintTop_toBottomOf="@+id/img_wdnlfx"
+            binding:onClickCommand="@{viewModel.onSpecialExercisesCommand}"/>
+
+        <LinearLayout
+            android:id="@+id/ll_ct_sc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/img_zxlx">
+            <ImageView
+                android:id="@+id/img_ctb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_wdtk_ctb"
+                binding:onClickCommand="@{viewModel.onErrorPracticeCommand}"/>
+
+            <ImageView
+                android:id="@+id/img_scj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_wdtk_scj"
+                binding:onClickCommand="@{viewModel.onCollectedPracticeCommand}"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_recent_practice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最近练习"
+            android:layout_marginVertical="@dimen/dp15"
+            android:layout_marginLeft="@dimen/dp15"
+            android:textColor="@color/base_color_333333"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_ct_sc"/>
+
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingHorizontal="@dimen/dp15"
+            android:layout_marginTop="@dimen/dp10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recent_practice"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

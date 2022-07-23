@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_register_success">注册成功</string>
+    <string name="login_new_name">新培在线</string>
+    <string name="login_app_type">Kotlin版本</string>
+</resources>

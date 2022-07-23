@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_sy">首页</string>
+    <string name="home_kc">课程</string>
+    <string name="home_gg">公告</string>
+    <string name="home_wd">我的</string>
+    <string name="home_main_press_again">再按一次退出应用</string>
+</resources>

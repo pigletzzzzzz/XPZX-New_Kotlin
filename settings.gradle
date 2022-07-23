@@ -1,0 +1,9 @@
+include ':module_login'
+include ':module_web'
+include ':lib_base'
+include ':module_home'
+include ':module_course'
+include ':module_announcement'
+include ':module_mine'
+include ':app'
+rootProject.name = "XPZX-New_Kotlin"

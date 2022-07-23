@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <declare-styleable name="RippleSpreadView" tools:ignore="ResourceName">
+        <attr name="rsv_innerCircleColor" format="color" />
+        <attr name="rsv_innerSize" format="dimension" />
+        <attr name="rsv_innerAnimDuration" format="integer" />
+        <attr name="rsv_outCircleColor" format="color" />
+        <attr name="rsv_outSize" format="dimension" />
+        <attr name="rsv_outAnimDuration" format="integer" />
+    </declare-styleable>
+
+</resources>

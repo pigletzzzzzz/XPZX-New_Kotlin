@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/tools"
+    tools:ignore="ResourceName">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.czl.module_login.viewmodel.AllDeptViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp40"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_white_bg_r8">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/gray_33"
+                android:paddingLeft="@dimen/dp5"
+                android:text=""
+                android:textSize="@dimen/sp_14"
+                android:hint="请输入部门名称"
+                android:layout_marginLeft="@dimen/dp10"
+                android:background="@null"
+                binding:textChanged="@{viewModel.onSearchChangeCommand}"/>
+
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搜索"
+                android:textColor="@color/white"
+                android:paddingVertical="@dimen/dp3"
+                android:paddingHorizontal="@dimen/dp10"
+                android:layout_marginHorizontal="@dimen/dp10"
+                android:background="@drawable/btn_corner_2e7bf7_5dp"
+                binding:onClickCommand="@{viewModel.onGoSearchCommand}"/>
+
+        </LinearLayout>
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/smart_rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp5"
+            binding:onLoadMoreCommand="@{viewModel.onLoadMoreListener}"
+            binding:onRefreshCommand="@{viewModel.onRefreshListener}">
+
+            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                android:id="@+id/sh_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:shimmer_demo_child_count="10"/>
+
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+
+</layout>

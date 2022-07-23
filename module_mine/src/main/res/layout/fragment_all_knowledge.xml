@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    binding:ignore="ResourceName">
+
+    <data>
+
+    </data>
+
+    <ExpandableListView
+        android:id="@+id/elv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dp10"
+        android:groupIndicator="@null"
+        android:divider="@color/white"
+        android:dividerHeight="@dimen/dp0"
+        android:scrollbars="none"/>
+</layout>

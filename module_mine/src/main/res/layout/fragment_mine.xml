@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    binding:ignore="ResourceName">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.czl.module_mine.viewmodel.MineViewModel" />
+
+        <variable
+            name="userData"
+            type="com.czl.lib_base.data.bean.MineUserInfoBean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/base_color_f4f4f4">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_mine_top_bg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.czl.module_mine.view.DimPleView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/img_heard"
+            app:layout_constraintStart_toStartOf="@+id/img_heard"
+            app:layout_constraintEnd_toEndOf="@+id/img_heard"
+            app:layout_constraintTop_toTopOf="@+id/img_heard"/>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img_heard"
+            android:layout_width="@dimen/dp66"
+            android:layout_height="@dimen/dp66"
+            android:layout_marginTop="@dimen/dp30"
+            android:src="@mipmap/default_mine"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            binding:onClickCommand="@{viewModel.goLoginClick}"/>
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp10"
+            android:text="@{userData.userInfo.userName}"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/img_heard"
+            app:layout_constraintRight_toRightOf="@+id/img_heard"
+            app:layout_constraintLeft_toLeftOf="@+id/img_heard"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/user_lottieanimationview"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp44"
+            android:layout_marginRight="@dimen/dp5"
+            android:paddingBottom="@dimen/dp10"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="ic_setting.json"
+            app:lottie_loop="true"
+            binding:onClickCommand="@{viewModel.goSetingClick}"/>
+
+        <LinearLayout
+            android:id="@+id/ll_login_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp26"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/ll_learning_minutes"
+            app:layout_constraintTop_toBottomOf="@+id/img_heard">
+
+            <TextView
+                android:id="@+id/tv_login_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='--'
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:text="总登录天数"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_learning_minutes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp26"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toRightOf="@+id/ll_login_day"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_heard">
+
+            <TextView
+                android:id="@+id/tv_learning_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='--'
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp5"
+                android:text="昨日已学习(分钟)"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp10"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_login_day">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp15"
+                    android:background="@drawable/shape_white_bg_r8">
+
+                    <TextView
+                        android:id="@+id/tv_wdxx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:text="我的学习"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_16"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_wdxx">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdbj"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的班级"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12"
+                            binding:onClickCommand="@{viewModel.goMyCoursesCommand}"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdtk"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的题库"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12"
+                            binding:onClickCommand="@{viewModel.goMyQuestionBankCommand}"/>
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_wdks"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:drawableTop="@mipmap/icon_mine_wdks"
+                                android:drawablePadding="@dimen/dp5"
+                                android:paddingVertical="@dimen/dp5"
+                                android:text="我的考试"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/tv_wdks_num"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_alignRight="@+id/tv_wdks"
+                                android:background="@drawable/shape_red_360"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:visibility="gone" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdzs"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的证书"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_one">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_xypj"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="学员评教"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdtj"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="学习统计"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_wdx"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_weight="1"
+                                android:drawableTop="@mipmap/icon_mine_wdxx"
+                                android:drawablePadding="@dimen/dp5"
+                                android:paddingVertical="@dimen/dp5"
+                                android:text="我的消息"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/tv_wdx_num"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_alignRight="@+id/tv_wdx"
+                                android:background="@drawable/shape_red_360"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:visibility="gone" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_zbkc"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="直播课表"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp15"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_two">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdsc"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的收藏"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdgz"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的关注"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdrz"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的认证"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_gwxx"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="岗位学习"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp15"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@drawable/shape_white_bg_r8">
+
+                    <TextView
+                        android:id="@+id/tv_ddfw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:text="订单服务"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_16"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp15"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_ddfw">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_gwc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_weight="1"
+                                android:drawableTop="@mipmap/icon_mine_gwc"
+                                android:drawablePadding="@dimen/dp5"
+                                android:paddingVertical="@dimen/dp5"
+                                android:text="购物车"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/tv_gwc_num"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_alignRight="@+id/tv_gwc"
+                                android:background="@drawable/shape_red_360"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:visibility="gone" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_wddd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_weight="1"
+                                android:drawableTop="@mipmap/icon_mine_wddd"
+                                android:drawablePadding="@dimen/dp5"
+                                android:paddingVertical="@dimen/dp5"
+                                android:text="我的订单"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/tv_wddd_num"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_alignRight="@+id/tv_wddd"
+                                android:background="@drawable/shape_red_360"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text=""
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:visibility="gone" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdfp"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的发票"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdzs"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:text="我的证书"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12"
+                            android:visibility="invisible" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp15"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:background="@drawable/shape_white_bg_r8">
+
+                    <TextView
+                        android:id="@+id/tv_qtfw"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp15"
+                        android:text="其他服务"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp_16"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_qt_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_qtfw">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdjf"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的积分"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdwj"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的问卷"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_txm"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="临时通行码"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_wdfx"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的证书"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_qt_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp10"
+                        android:layout_marginBottom="@dimen/dp15"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_qt_one">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_cjwt"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="常见问题"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_xyjs"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="学院介绍"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_gywm"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="关于我们"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_mine_pxda"
+                            android:drawablePadding="@dimen/dp5"
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="@dimen/dp5"
+                            android:text="我的培训档案"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

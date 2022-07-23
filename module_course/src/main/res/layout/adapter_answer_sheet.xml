@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ResourceName">
+
+    <data>
+        <variable
+            name="pop"
+            type="com.czl.module_course.view.AnswerSheetPopView" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_all_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shape_white_bg_r8">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_33"
+            android:textSize="@dimen/sp_16"
+            android:text="答题卡"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/dp20" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp5"
+            android:layout_marginBottom="@dimen/dp_10" />
+
+    </LinearLayout>
+</layout>
